@@ -23,8 +23,8 @@ class DummyClass extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Index')
-            ->description('description')
+            ->header('Dummyheader')
+            ->description('列表')
             ->body($this->grid());
     }
 
@@ -38,8 +38,8 @@ class DummyClass extends Controller
     public function show($id, Content $content)
     {
         return $content
-            ->header('Detail')
-            ->description('description')
+            ->header('Dummyheader')
+            ->description('查看')
             ->body($this->detail($id));
     }
 
@@ -53,8 +53,8 @@ class DummyClass extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Edit')
-            ->description('description')
+            ->header('Dummyheader')
+            ->description('编辑')
             ->body($this->form()->edit($id));
     }
 
@@ -67,8 +67,8 @@ class DummyClass extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('Create')
-            ->description('description')
+            ->header('Dummyheader')
+            ->description('创建')
             ->body($this->form());
     }
 
@@ -82,8 +82,11 @@ class DummyClass extends Controller
         $grid = new Grid(new DummyModel);
 
         $grid->id('ID');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
+
+        DummyStructureGrid
+
+        $grid->created_at('创建时间');
+        $grid->updated_at('更新时间');
 
         return $grid;
     }
@@ -99,8 +102,11 @@ class DummyClass extends Controller
         $show = new Show(DummyModel::findOrFail($id));
 
         $show->id('ID');
-        $show->created_at('Created at');
-        $show->updated_at('Updated at');
+
+        DummyStructureShow
+
+        $show->created_at('创建时间');
+        $show->updated_at('更新时间');
 
         return $show;
     }
@@ -115,8 +121,11 @@ class DummyClass extends Controller
         $form = new Form(new DummyModel);
 
         $form->display('ID');
-        $form->display('Created at');
-        $form->display('Updated at');
+
+        DummyStructureForm
+
+        $form->display('创建时间');
+        $form->display('更新时间');
 
         return $form;
     }

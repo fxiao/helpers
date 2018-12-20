@@ -18,6 +18,11 @@ class ControllerCreator
      */
     protected $files;
 
+    protected $bluePrintGrid = '';
+    protected $bluePrintShow = '';
+    protected $bluePrintForm = '';
+    protected $bluePrintHeader = '';
+
     /**
      * ControllerCreator constructor.
      *
@@ -67,8 +72,8 @@ class ControllerCreator
         $stub = $this->replaceClass($stub, $name);
 
         return str_replace(
-            ['DummyModelNamespace', 'DummyModel'],
-            [$model, class_basename($model)],
+            ['DummyModelNamespace', 'DummyModel', 'Dummyheader', 'DummyStructureGrid', 'DummyStructureShow', 'DummyStructureForm'],
+            [$model, class_basename($model), $this->bluePrintHeader, $this->bluePrintGrid, $this->bluePrintShow, $this->bluePrintForm],
             $stub
         );
     }
@@ -124,5 +129,95 @@ class ControllerCreator
     public function getStub()
     {
         return __DIR__.'/stubs/controller.stub';
+    }
+
+    /**
+     * Build the table blueprint.
+     *
+     * @param array      $fields
+     *
+     * @throws \Exception
+     *
+     * @return $this
+     */
+    public function buildBluePrint($fields = [], $header="")
+    {
+        $fields = array_filter($fields, function ($field) {
+            return isset($field['name']) && !empty($field['name']);
+        });
+
+        if (empty($fields)) {
+            throw new \Exception('Table fields can\'t be empty');
+        }
+
+        $types = [
+            'string' => 'text', 
+            'integer' => 'number', 
+            'text' => 'text', 
+            'float' => 'text', 
+            'double' => 'text', 
+            'decimal' => 'text', 
+            'boolean' => 'text', 
+            'date' => 'date', 
+            'time' => 'time',
+            'dateTime' => 'datetime', 
+            'timestamp' => 'time', 
+            'char' => 'text', 
+            'mediumText' => 'text', 
+            'longText' => 'textarea', 
+            'tinyInteger' => 'number', 
+            'smallInteger' => 'number',
+            'mediumInteger' => 'number', 
+            'bigInteger' => 'number', 
+            'unsignedTinyInteger' => 'number', 
+            'unsignedSmallInteger' => 'number', 
+            'unsignedMediumInteger' => 'number',
+            'unsignedInteger' => 'number', 
+            'unsignedBigInteger' => 'number', 
+            'enum' => 'textarea', 
+            'json' => 'textarea', 
+            'jsonb' => 'textarea', 
+            'dateTimeTz' => 'dateTime', 
+            'timeTz' => 'time',
+            'timestampTz' => 'time', 
+            'nullableTimestamps' => 'time', 
+            'binary' => 'text', 
+            'ipAddress' => 'ip', 
+            'macAddress' => 'text'
+        ];
+
+        $rows_grid = [];
+        $rows_form = []; 
+
+        $i = 0;
+        foreach ($fields as $field) {
+
+            $i++;
+            $n = "\n";
+            if ($i>3) {
+                $n = "\n\n";
+                $i = 0;
+            }
+
+            $default = $field['default'] ? "->default('{$field['default']}')" : "";
+
+            $rows_grid[] = "\$grid->{$field['name']}('{$field['comment']}');$n";
+            $rows_show[] = "\$show->" .
+                array_get($types, $field['type'], 'text') .
+                "('{$field['name']}', '{$field['comment']}')$default;$n";
+
+            $rows_form[] = "\$form->" .
+                array_get($types, $field['type'], 'text') .
+                "('{$field['name']}', '{$field['comment']}')$default;$n";
+        }
+
+
+        $this->bluePrintGrid = trim(implode(str_repeat(' ', 12), $rows_grid), "\n");
+        $this->bluePrintShow = trim(implode(str_repeat(' ', 12), $rows_show), "\n");
+        $this->bluePrintForm = trim(implode(str_repeat(' ', 12), $rows_form), "\n");
+
+        $this->bluePrintHeader = $header;
+
+        return $this;
     }
 }

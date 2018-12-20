@@ -13,6 +13,14 @@
 
                 <div class="form-group">
 
+                    <label for="inputHeader" class="col-sm-1 control-label">中文名</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="header" class="form-control" id="inputHeader" placeholder="中文名" value="{{ old('header') }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+
                     <label for="inputTableName" class="col-sm-1 control-label">Table name</label>
 
                     <div class="col-sm-4">
