@@ -1,6 +1,6 @@
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">Scaffold</h3>
+        <h3 class="box-title">生成器</h3>
     </div>
     <!-- /.box-header -->
     <div class="box-body">
@@ -21,7 +21,7 @@
 
                 <div class="form-group">
 
-                    <label for="inputTableName" class="col-sm-1 control-label">Table name</label>
+                    <label for="inputTableName" class="col-sm-1 control-label">表名</label>
 
                     <div class="col-sm-4">
                         <input type="text" name="table_name" class="form-control" id="inputTableName" placeholder="table name" value="{{ old('table_name') }}">
@@ -37,16 +37,16 @@
                     <div class="col-sm-offset-1 col-sm-11">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" checked value="migration" name="create[]" /> Create migration
+                                <input type="checkbox" checked value="migration" name="create[]" /> 创建 migration
                             </label>
                             <label>
-                                <input type="checkbox" checked value="model" name="create[]" /> Create model
+                                <input type="checkbox" checked value="model" name="create[]" /> 创建 model
                             </label>
                             <label>
-                                <input type="checkbox" checked value="controller" name="create[]" /> Create controller
+                                <input type="checkbox" checked value="controller" name="create[]" /> 创建 controller
                             </label>
                             <label>
-                                <input type="checkbox" checked value="migrate" name="create[]" /> Run migrate
+                                <input type="checkbox" checked value="migrate" name="create[]" /> 运行 migrate
                             </label>
                         </div>
                     </div>
@@ -56,25 +56,25 @@
 
                 <hr />
 
-                <h4>Fields</h4>
+                <h4>字段列表</h4>
 
                 <table class="table table-hover" id="table-fields">
                     <tbody>
                     <tr>
-                        <th style="width: 200px">Field name</th>
-                        <th>Type</th>
-                        <th>Nullable</th>
+                        <th style="width: 200px">字段名</th>
+                        <th>类型</th>
+                        <th>为空</th>
                         <th>Key</th>
-                        <th>Default value</th>
-                        <th>Comment</th>
-                        <th>Action</th>
+                        <th>默认值</th>
+                        <th>注释</th>
+                        <th>操作</th>
                     </tr>
 
                     @if(old('fields'))
                         @foreach(old('fields') as $index => $field)
                             <tr>
                                 <td>
-                                    <input type="text" name="fields[{{$index}}][name]" class="form-control" placeholder="field name" value="{{$field['name']}}" />
+                                    <input type="text" name="fields[{{$index}}][name]" class="form-control" placeholder="字段名" value="{{$field['name']}}" />
                                 </td>
                                 <td>
                                     <select style="width: 200px" name="fields[{{$index}}][type]">
@@ -92,15 +92,15 @@
                                         <option value="index" {{$field['key'] == 'index' ? 'selected' : '' }}>Index</option>
                                     </select>
                                 </td>
-                                <td><input type="text" class="form-control" placeholder="default value" name="fields[{{$index}}][default]" value="{{$field['default']}}"/></td>
-                                <td><input type="text" class="form-control" placeholder="comment" name="fields[{{$index}}][comment]" value="{{$field['comment']}}" /></td>
-                                <td><a class="btn btn-sm btn-danger table-field-remove"><i class="fa fa-trash"></i> remove</a></td>
+                                <td><input type="text" class="form-control" placeholder="默认值" name="fields[{{$index}}][default]" value="{{$field['default']}}"/></td>
+                                <td><input type="text" class="form-control" placeholder="注释" name="fields[{{$index}}][comment]" value="{{$field['comment']}}" /></td>
+                                <td><a class="btn btn-sm btn-danger table-field-remove"><i class="fa fa-trash"></i> 删除</a></td>
                             </tr>
                         @endforeach
                     @else
                     <tr>
                         <td>
-                            <input type="text" name="fields[0][name]" class="form-control" placeholder="field name" />
+                            <input type="text" name="fields[0][name]" class="form-control" placeholder="字段名" />
                         </td>
                         <td>
                             <select style="width: 200px" name="fields[0][type]">
@@ -118,9 +118,9 @@
                                 <option value="index">Index</option>
                             </select>
                         </td>
-                        <td><input type="text" class="form-control" placeholder="default value" name="fields[0][default]"></td>
-                        <td><input type="text" class="form-control" placeholder="comment" name="fields[0][comment]"></td>
-                        <td><a class="btn btn-sm btn-danger table-field-remove"><i class="fa fa-trash"></i> remove</a></td>
+                        <td><input type="text" class="form-control" placeholder="默认值" name="fields[0][default]"></td>
+                        <td><input type="text" class="form-control" placeholder="注释" name="fields[0][comment]"></td>
+                        <td><a class="btn btn-sm btn-danger table-field-remove"><i class="fa fa-trash"></i> 删除</a></td>
                     </tr>
                     @endif
                     </tbody>
@@ -132,17 +132,17 @@
 
 
                     <div class='form-group'>
-                        <button type="button" class="btn btn-sm btn-success" id="add-table-field"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add field</button>
+                        <button type="button" class="btn btn-sm btn-success" id="add-table-field"><i class="fa fa-plus"></i>&nbsp;&nbsp;增加字段</button>
                     </div>
 
                     <div class='form-group pull-right' style="margin-right: 20px; margin-top: 5px;">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" checked name="timestamps"> Created_at & Updated_at
+                                <input type="checkbox" checked name="timestamps"> 创建时间 & 更新时间
                             </label>
                             &nbsp;&nbsp;
                             <label>
-                                <input type="checkbox" name="soft_deletes"> Soft deletes
+                                <input type="checkbox" name="soft_deletes"> 软删除
                             </label>
 
                         </div>
@@ -201,7 +201,7 @@
 <template id="table-field-tpl">
     <tr>
         <td>
-            <input type="text" name="fields[__index__][name]" class="form-control" placeholder="field name" />
+            <input type="text" name="fields[__index__][name]" class="form-control" placeholder="字段名" />
         </td>
         <td>
             <select style="width: 200px" name="fields[__index__][type]">
@@ -218,9 +218,9 @@
                 <option value="index">Index</option>
             </select>
         </td>
-        <td><input type="text" class="form-control" placeholder="default value" name="fields[__index__][default]"></td>
-        <td><input type="text" class="form-control" placeholder="comment" name="fields[__index__][comment]"></td>
-        <td><a class="btn btn-sm btn-danger table-field-remove"><i class="fa fa-trash"></i> remove</a></td>
+        <td><input type="text" class="form-control" placeholder="默认值" name="fields[__index__][default]"></td>
+        <td><input type="text" class="form-control" placeholder="注释" name="fields[__index__][comment]"></td>
+        <td><a class="btn btn-sm btn-danger table-field-remove"><i class="fa fa-trash"></i> 删除</a></td>
     </tr>
 </template>
 
@@ -239,7 +239,7 @@
         <td><input type="text" class="form-control" placeholder="default value"></td>
         <td><input type="text" class="form-control" placeholder="default value"></td>
         <td><input type="checkbox" /></td>
-        <td><a class="btn btn-sm btn-danger model-relation-remove"><i class="fa fa-trash"></i> remove</a></td>
+        <td><a class="btn btn-sm btn-danger model-relation-remove"><i class="fa fa-trash"></i> 删除</a></td>
     </tr>
 </template>
 

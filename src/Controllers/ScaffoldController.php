@@ -18,7 +18,7 @@ class ScaffoldController extends Controller
     public function index()
     {
         return Admin::content(function (Content $content) {
-            $content->header('Scaffold');
+            $content->header('生成器');
 
             $dbTypes = [
                 'string', 'integer', 'text', 'float', 'double', 'decimal', 'boolean', 'date', 'time',
