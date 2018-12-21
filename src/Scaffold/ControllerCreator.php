@@ -202,9 +202,7 @@ class ControllerCreator
             $default = $field['default'] ? "->default('{$field['default']}')" : "";
 
             $rows_grid[] = "\$grid->{$field['name']}('{$field['comment']}');$n";
-            $rows_show[] = "\$show->" .
-                array_get($types, $field['type'], 'text') .
-                "('{$field['name']}', '{$field['comment']}')$default;$n";
+            $rows_show[] = "\$show->{$field['name']}('{$field['comment']}');$n";
 
             $rows_form[] = "\$form->" .
                 array_get($types, $field['type'], 'text') .
