@@ -41,9 +41,18 @@ class ScaffoldController extends Controller
 
         try {
 
+            $table_name = $request->get('table_name'); 
+            $class_name = $this->table_to_model($table_name); 
+
+            $model_name = (env('DEV_HELPERS_MODELS_PATH', 'App\\Models\\') 
+                ?: 'App\\Models\\') . $class_name;
+
+            $controller_name = (env('DEV_HELPERS_CONTROLLER_PATH', 'App\\Admin\\Controllers\\')
+                ?: 'App\\Admin\\Controllers\\') . $class_name . 'Controller';
+
             // 1. Create model.
             if (in_array('model', $request->get('create'))) {
-                $modelCreator = new ModelCreator($request->get('table_name'), $request->get('model_name'));
+                $modelCreator = new ModelCreator($request->get('table_name'), $model_name);
 
                 $paths['model'] = $modelCreator->create(
                     $request->get('primary_key'),
@@ -54,11 +63,11 @@ class ScaffoldController extends Controller
 
             // 2. Create controller.
             if (in_array('controller', $request->get('create'))) {
-                $paths['controller'] = (new ControllerCreator($request->get('controller_name')))
+                $paths['controller'] = (new ControllerCreator($controller_name))
                     ->buildBluePrint(
                         $request->get('fields'),
                         $request->get('header')
-                    )->create($request->get('model_name'));
+                    )->create($model_name);
             }
 
             // 3. Create migration.
@@ -115,5 +124,14 @@ class ScaffoldController extends Controller
         ]);
 
         return back()->with(compact('success'));
+    }
+
+    protected function table_to_model(string $table): string {
+        $model = '';
+        foreach(explode('_', $table) as $mn) {
+            $model .= ucwords($mn);
+        }
+
+        return $model;
     }
 }

@@ -32,21 +32,6 @@
                     </span>
 
                 </div>
-                <div class="form-group">
-                    <label for="inputModelName" class="col-sm-1 control-label">Model</label>
-
-                    <div class="col-sm-4">
-                        <input type="text" name="model_name" class="form-control" id="inputModelName" placeholder="model" value="{{ old('model_name', "App\\Models\\") }}">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputControllerName" class="col-sm-1 control-label">Controller</label>
-
-                    <div class="col-sm-4">
-                        <input type="text" name="controller_name" class="form-control" id="inputControllerName" placeholder="controller" value="{{ old('controller_name', "App\\Admin\\Controllers\\") }}">
-                    </div>
-                </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-sm-11">
