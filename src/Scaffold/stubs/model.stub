@@ -14,4 +14,8 @@ class DummyClass extends Model
     DummyModelKey
 
     DummyTimestamp
+
+    protected $fillable = [
+        DummyFieldFill
+    ];
 }

@@ -55,6 +55,7 @@ class ScaffoldController extends Controller
                 $modelCreator = new ModelCreator($request->get('table_name'), $model_name);
 
                 $paths['model'] = $modelCreator->create(
+                    $request->get('fields'),
                     $request->get('primary_key'),
                     $request->get('timestamps') == 'on',
                     $request->get('soft_deletes') == 'on'

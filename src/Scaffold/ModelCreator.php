@@ -54,7 +54,7 @@ class ModelCreator
      *
      * @return string
      */
-    public function create($keyName = 'id', $timestamps = true, $softDeletes = false)
+    public function create($fields, $keyName = 'id', $timestamps = true, $softDeletes = false)
     {
         $path = $this->getpath($this->name);
 
@@ -65,6 +65,7 @@ class ModelCreator
         $stub = $this->files->get($this->getStub());
 
         $stub = $this->replaceClass($stub, $this->name)
+            ->replaceFill($stub, $fields)
             ->replaceNamespace($stub, $this->name)
             ->replaceSoftDeletes($stub, $softDeletes)
             ->replaceTable($stub, $this->name)
@@ -121,6 +122,36 @@ class ModelCreator
 
         return $this;
     }
+
+
+    /**
+     * Replace fill  dummy.
+     *
+     * @param string $stub
+     * @param string $fields
+     *
+     * @return $this
+     */
+    protected function replaceFill(&$stub, $fields)
+    {
+        $fields = array_filter($fields, function ($field) {
+            return isset($field['name']) && !empty($field['name']);
+        });
+
+        if (empty($fields)) {
+            throw new \Exception('Table fields can\'t be empty');
+        }
+
+        $rows_form = []; 
+        foreach ($fields as $field) {
+            $rows_form[] = "'{$field['name']}',\n";
+        }
+
+        $stub = str_replace('DummyFieldFill', trim(implode(str_repeat(' ', 8), $rows_form), ",\n"), $stub);
+
+        return $this;
+    }
+
 
     /**
      * Replace namespace dummy.
