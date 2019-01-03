@@ -210,9 +210,9 @@ class ControllerCreator
         }
 
 
-        $this->bluePrintGrid = trim(implode(str_repeat(' ', 12), $rows_grid), "\n");
-        $this->bluePrintShow = trim(implode(str_repeat(' ', 12), $rows_show), "\n");
-        $this->bluePrintForm = trim(implode(str_repeat(' ', 12), $rows_form), "\n");
+        $this->bluePrintGrid = trim(implode(str_repeat(' ', 8), $rows_grid), "\n");
+        $this->bluePrintShow = trim(implode(str_repeat(' ', 8), $rows_show), "\n");
+        $this->bluePrintForm = trim(implode(str_repeat(' ', 8), $rows_form), "\n");
 
         $this->bluePrintHeader = $header;
 
