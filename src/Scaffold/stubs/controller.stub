@@ -120,12 +120,12 @@ class DummyClass extends Controller
     {
         $form = new Form(new DummyModel);
 
-        $form->display('ID');
+        $form->display('id', 'ID');
 
         DummyStructureForm
 
-        $form->display('创建时间');
-        $form->display('更新时间');
+        $form->display('created_at', '创建时间');
+        $form->display('updated_at', '更新时间');
 
         return $form;
     }
