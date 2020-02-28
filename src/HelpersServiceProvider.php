@@ -13,6 +13,12 @@ class HelpersServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-admin-helpers');
 
+        // 注册命令
+        $this->commands([
+            GenerateAdminCommand::class,
+        ]);
+
         Helpers::boot();
     }
+
 }

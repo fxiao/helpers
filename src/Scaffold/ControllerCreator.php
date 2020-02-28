@@ -2,6 +2,8 @@
 
 namespace Encore\Admin\Helpers\Scaffold;
 
+use Illuminate\Support\Arr;
+
 class ControllerCreator
 {
     /**
@@ -205,7 +207,7 @@ class ControllerCreator
             $rows_show[] = "\$show->{$field['name']}('{$field['comment']}');$n";
 
             $rows_form[] = "\$form->" .
-                array_get($types, $field['type'], 'text') .
+                Arr::get($types, $field['type'], 'text') .
                 "('{$field['name']}', '{$field['comment']}')$default;$n";
         }
 
